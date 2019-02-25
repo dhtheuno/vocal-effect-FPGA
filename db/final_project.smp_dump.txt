@@ -1,0 +1,70 @@
+
+State Machine - |Audio_Top|Audio_input_ADC:ADC1|curr_state
+Name curr_state.D curr_state.C curr_state.B curr_state.A curr_state.E 
+curr_state.A 0 0 0 0 0 
+curr_state.B 0 0 1 1 0 
+curr_state.C 0 1 0 1 0 
+curr_state.D 1 0 0 1 0 
+curr_state.E 0 0 0 1 1 
+
+State Machine - |Audio_Top|Audio_Output_DAC:DAC1|curr_state
+Name curr_state.D curr_state.C curr_state.B curr_state.A curr_state.E 
+curr_state.A 0 0 0 0 0 
+curr_state.B 0 0 1 1 0 
+curr_state.C 0 1 0 1 0 
+curr_state.D 1 0 0 1 0 
+curr_state.E 0 0 0 1 1 
+
+State Machine - |Audio_Top|Audio_Initializer:AI9|i2c:i2c_1|errorReg
+Name errorReg.0101 errorReg.0100 errorReg.0011 errorReg.0010 errorReg.0001 errorReg.0000 errorReg.1111 
+errorReg.0000 0 0 0 0 0 0 0 
+errorReg.0001 0 0 0 0 1 1 0 
+errorReg.0010 0 0 0 1 0 1 0 
+errorReg.0011 0 0 1 0 0 1 0 
+errorReg.0100 0 1 0 0 0 1 0 
+errorReg.0101 1 0 0 0 0 1 0 
+errorReg.1111 0 0 0 0 0 1 1 
+
+State Machine - |Audio_Top|nios_system:nios_system|nios_system_sdram:sdram|m_next
+Name m_next.010000000 m_next.000010000 m_next.000001000 m_next.000000001 
+m_next.000000001 0 0 0 0 
+m_next.000001000 0 0 1 1 
+m_next.000010000 0 1 0 1 
+m_next.010000000 1 0 0 1 
+
+State Machine - |Audio_Top|nios_system:nios_system|nios_system_sdram:sdram|m_state
+Name m_state.100000000 m_state.010000000 m_state.001000000 m_state.000100000 m_state.000010000 m_state.000001000 m_state.000000100 m_state.000000010 m_state.000000001 
+m_state.000000001 0 0 0 0 0 0 0 0 0 
+m_state.000000010 0 0 0 0 0 0 0 1 1 
+m_state.000000100 0 0 0 0 0 0 1 0 1 
+m_state.000001000 0 0 0 0 0 1 0 0 1 
+m_state.000010000 0 0 0 0 1 0 0 0 1 
+m_state.000100000 0 0 0 1 0 0 0 0 1 
+m_state.001000000 0 0 1 0 0 0 0 0 1 
+m_state.010000000 0 1 0 0 0 0 0 0 1 
+m_state.100000000 1 0 0 0 0 0 0 0 1 
+
+State Machine - |Audio_Top|nios_system:nios_system|nios_system_sdram:sdram|i_next
+Name i_next.111 i_next.101 i_next.010 i_next.000 
+i_next.000 0 0 0 0 
+i_next.010 0 0 1 1 
+i_next.101 0 1 0 1 
+i_next.111 1 0 0 1 
+
+State Machine - |Audio_Top|nios_system:nios_system|nios_system_sdram:sdram|i_state
+Name i_state.111 i_state.101 i_state.011 i_state.010 i_state.001 i_state.000 
+i_state.000 0 0 0 0 0 0 
+i_state.001 0 0 0 0 1 1 
+i_state.010 0 0 0 1 0 1 
+i_state.011 0 0 1 0 0 1 
+i_state.101 0 1 0 0 0 1 
+i_state.111 1 0 0 0 0 1 
+
+State Machine - |Audio_Top|nios_system:nios_system|nios_system_nios2_gen2_0:nios2_gen2_0|nios_system_nios2_gen2_0_cpu:cpu|nios_system_nios2_gen2_0_cpu_nios2_oci:the_nios_system_nios2_gen2_0_cpu_nios2_oci|nios_system_nios2_gen2_0_cpu_debug_slave_wrapper:the_nios_system_nios2_gen2_0_cpu_debug_slave_wrapper|nios_system_nios2_gen2_0_cpu_debug_slave_tck:the_nios_system_nios2_gen2_0_cpu_debug_slave_tck|DRsize
+Name DRsize.101 DRsize.100 DRsize.011 DRsize.010 DRsize.001 DRsize.000 
+DRsize.000 0 0 0 0 0 0 
+DRsize.001 0 0 0 0 1 1 
+DRsize.010 0 0 0 1 0 1 
+DRsize.011 0 0 1 0 0 1 
+DRsize.100 0 1 0 0 0 1 
+DRsize.101 1 0 0 0 0 1 

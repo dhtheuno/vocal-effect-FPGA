@@ -1,0 +1,109 @@
+module Audio_Initializer(
+									input Clk,
+									input reset,
+									
+									output I2C_SCLK,
+									inout I2C_SDAT
+								);
+								
+logic [15:0] c_I2C_CLK_DIV;
+logic [23:0] c_I2C_DATA;
+logic c_I2C_CLK;
+logic c_I2C_GO;
+logic c_I2C_END;
+logic c_IC2_ACK;
+logic rest_n = !reset;
+
+logic [15:0] index;
+logic [3:0] setup;
+logic [15:0] DATA;
+
+always_ff@(posedge Clk or negedge rest_n)
+begin
+	if(!rest_n)
+		begin
+			c_I2C_CLK <= 0;
+			c_I2C_CLK_DIV <=0;
+		end
+	else 
+		begin
+			if(c_I2C_CLK_DIV < (50000000/20000))
+				c_I2C_CLK_DIV <= c_I2C_CLK_DIV+1;
+			else
+				begin
+					c_I2C_CLK_DIV <= 0;
+					c_I2C_CLK <= ~c_I2C_CLK;
+				end
+		end
+end
+
+I2C I2C_1(
+				.CLOCK(c_I2C_CLK),
+				.I2C_SCLK(I2C_SCLK),
+				.I2C_SDAT(I2C_SDAT),
+				.I2C_DATA(c_I2C_DATA),
+				.GO(c_I2C_GO),
+				.END(C_I2C_END),
+				.ACK(c_I2C_ACK),
+				.RESET(rest_n);
+			)
+
+always_ff@(posedge c_I2C_CLK or negedge rest_n)
+begin
+	if(!rest_n)
+		begin
+			index <=0;
+			setup <=0;
+			c_I2C_GO <=0;
+		end 
+	else 
+		begin
+			if(index < 10)
+			begin
+				case(setup)
+				0: 
+					begin
+						c_I2C_DATA <={8'h34,DATA};
+						c_I2C_GO<=1;
+						setup <=1;
+					end
+				1:
+					begin
+						if(c_I2C_END)
+							begin
+								if(!c_I2C_ACK)
+									setup <=2;
+								else
+									setup<=0;
+									c_I2C_GO <=0;
+							end
+					end
+				2:
+					begin
+						index <= index+1;
+						setup<=0;
+					end
+				endcase
+			end
+		end
+	end
+	
+always_comb
+begin
+	case(index)
+	0: data = {7'h0,9'd24};
+	1: data = {7'h1,9'd24};
+	2: data = {7'h2, 9'd119};
+	3: data = {7'h3, 9'd119};
+	4: data = {7'h4, 9'd17}+(16'h0004);
+	5: data = {7'h5, 9'd6};
+	6: data = {7'h6, 9'h000};
+	7: data = {7'h7, 9'd77};
+	8: data = {7'h8, 9'd0};
+	9: data = {7'h9, 9'h001};
+	endcase
+end
+
+endmodule
+	
+

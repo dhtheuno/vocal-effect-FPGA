@@ -1,0 +1,59 @@
+module downarrowgenerator (input DOWN,
+							  output logic [1439:0] pixel_map);
+			
+logic [15:0][4:0]   fontkey;
+logic [9:0][143:0] header;
+logic [1439:0]		 pixel_division;
+
+	
+font_rom fonts0 (fontkey[0], header[0]);
+font_rom fonts1 (fontkey[1], header[1]);
+font_rom fonts2 (fontkey[2], header[2]);
+font_rom fonts3 (fontkey[3], header[3]);
+font_rom fonts4 (fontkey[4], header[4]);
+font_rom fonts5 (fontkey[5], header[5]);
+font_rom fonts6 (fontkey[6], header[6]);
+font_rom fonts7 (fontkey[7], header[7]);
+font_rom fonts8 (fontkey[8], header[8]);
+font_rom fonts9 (fontkey[9], header[9]);
+		
+assign pixel_map = pixel_division;
+
+
+always_comb
+				begin//uparrow
+					fontkey[0] = 5'b11111; 
+					fontkey[1] = 5'b11111;
+					fontkey[2] = 5'b11111;
+					fontkey[3] = 5'b11111;
+					fontkey[4] = 5'b11111;
+					fontkey[5] = 5'b01100;//up
+					fontkey[6] = 5'b11111;
+					fontkey[7] = 5'b11111; 
+					fontkey[8] = 5'b11111;
+					fontkey[9] = 5'b11111; 
+				end
+
+		
+	always_comb
+	begin
+			pixel_division[1439:1320] = {header[0][143:132], header[1][143:132], header[2][143:132], header[3][143:132], header[4][143:132], header[5][143:132], header[6][143:132], header[7][143:132], header[8][143:132], header[9][143:132]};
+			pixel_division[1319:1200] = {header[0][131:120], header[1][131:120], header[2][131:120], header[3][131:120], header[4][131:120], header[5][131:120], header[6][131:120], header[7][131:120], header[8][131:120], header[9][131:120]};
+			pixel_division[1199:1080] = {header[0][119:108], header[1][119:108], header[2][119:108], header[3][119:108], header[4][119:108], header[5][119:108], header[6][119:108], header[7][119:108], header[8][119:108], header[9][119:108]};
+			pixel_division[1079:960] = {header[0][107:96], header[1][107:96], header[2][107:96], header[3][107:96], header[4][107:96], header[5][107:96], header[6][107:96], header[7][107:96], header[8][107:96], header[9][107:96]};
+			pixel_division[959:840] = {header[0][95:84], header[1][95:84], header[2][95:84], header[3][95:84], header[4][95:84], header[5][95:84], header[6][95:84], header[7][95:84], header[8][95:84], header[9][95:84]};
+			pixel_division[839:720] = {header[0][83:72], header[1][83:72], header[2][83:72], header[3][83:72], header[4][83:72], header[5][83:72], header[6][83:72], header[7][83:72], header[8][83:72], header[9][83:72]};
+			pixel_division[719:600] = {header[0][71:60], header[1][71:60], header[2][71:60], header[3][71:60], header[4][71:60], header[5][71:60], header[6][71:60], header[7][71:60], header[8][71:60], header[9][71:60]};
+			pixel_division[599:480] = {header[0][59:48], header[1][59:48], header[2][59:48], header[3][59:48], header[4][59:48], header[5][59:48], header[6][59:48], header[7][59:48], header[8][59:48], header[9][59:48]};
+			pixel_division[479:360] = {header[0][47:36], header[1][47:36], header[2][47:36], header[3][47:36], header[4][47:36], header[5][47:36], header[6][47:36], header[7][47:36], header[8][47:36], header[9][47:36]};
+			pixel_division[359:240] = {header[0][35:24], header[1][35:24], header[2][35:24], header[3][35:24], header[4][35:24], header[5][35:24], header[6][35:24], header[7][35:24], header[8][35:24], header[9][35:24]};
+			pixel_division[239:120] = {header[0][23:12], header[1][23:12], header[2][23:12], header[3][23:12], header[4][23:12], header[5][23:12], header[6][23:12], header[7][23:12], header[8][23:12], header[9][23:12]};
+			pixel_division[119:0] = {header[0][11:0], header[1][11:0], header[2][11:0], header[3][11:0], header[4][11:0], header[5][11:0], header[6][11:0], header[7][11:0], header[8][11:0], header[9][11:0]};
+			
+			
+		end
+		
+endmodule	
+			
+				
+				

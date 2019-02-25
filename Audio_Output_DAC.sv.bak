@@ -1,0 +1,90 @@
+module Audio_Output_DAC(
+								input Clk,
+								input reset,
+								input AUD_BCLK,
+								input AUD_DACLRCK,
+								input [31:0]data,
+								
+								output logic Send_Done,
+								output logic AUD_DACDAT
+								);
+								
+
+logic [4:0] Bits_Count;
+logic [31:0] Buffer;
+ 								
+enum logic [2:0] {A,B,C,D,E,} curr_state, next_state;
+
+always_ff @ (posedge Clk or negedge reset)
+begin
+	if(!reset)
+		curr_state <= A;
+		Bits_Count <= 5'd31;
+	else
+		curr_state<=next_state;
+		case(curr_state)
+		B:
+			begin
+				if(AUD_DACLRCK == 1)
+					buffer <= data;
+			end
+		C:
+			begin
+				Bits_Count <= Bits_Count - 5'd1;
+			end
+		D:
+			begin
+				Bits_Count <= 5'd31;
+			end
+		endcase
+	end 		
+end
+								
+always_comb
+begin
+	Send_Done = 1'b0;
+	next_state = curr_state;
+	
+	unique case (curr_state)
+		A: 
+			begin
+				next_state = B;
+			end
+		
+		B: 
+			begin
+				next_state = B;
+				if(AUD_DACLRCK == 1)
+					next_state = C;
+			end 
+		C: 
+			begin
+				next_state = SEND;	
+				if(Bits_Count ==0)
+					next_state = D;
+			end 
+		D: 
+			begin
+				next_state = B;
+			end
+	endcase
+end 
+								
+always_comb 
+begin	
+	case(curr_state)
+		C:
+			begin
+				AUD_DACDAT = Buffer[Bits_Count];
+			end
+		D: 
+			begin
+				Send_Done = 1'b1
+			end
+	endcase
+end 
+
+endmodule 	
+	
+				
+				

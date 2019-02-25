@@ -1,0 +1,5 @@
+PLL_Name	Audio_Clock1:Aucio_Clock1|Audio_Clock1_audio_pll_0:audio_pll_0|altera_up_altpll:audio_pll|altpll:PLL_for_DE_Series_Boards|altpll_dkb2:auto_generated|pll1
+PLLJITTER	25
+PLLSPEmax	84
+PLLSPEmin	-53
+

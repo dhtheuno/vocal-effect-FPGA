@@ -1,0 +1,10 @@
+module LPF(input Clk,
+				input reset,
+				input AUD_BLCK,
+				input AUD_DACLRCK,
+				input AUD_ADCLRCK,
+				input [31:0] datain,
+				output logic [31:0] dataout
+				);
+
+logic [31:0] firstin;

@@ -1,0 +1,30 @@
+module echo (
+					input [31:0]data_input,
+					input Clk,
+					output [31:0]data_output
+					
+					);
+					
+logic [31:0] delay; 
+logic [31:0] delayloop;
+logic [15:0] left_audio;
+logic [15:0] right_audio;
+
+
+assign delayloop = data_output; 
+assign left_audio = $signed(delay[31:16])/$signed(16'd2);
+assign right_audio = $signed(delay[15:0])/$signed(16'd2);
+
+regi regi1 (
+	.clock(Clk),
+	.shiftin(delayloop),
+	.shiftout(delay)
+				);
+				
+always_ff @ (posedge Clk)
+begin 
+		data_output = {left_audio,right_audio}+data_input;
+end
+
+endmodule
+	

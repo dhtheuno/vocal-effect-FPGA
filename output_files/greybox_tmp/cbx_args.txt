@@ -1,0 +1,11 @@
+INTENDED_DEVICE_FAMILY="Cyclone IV E"
+LPM_HINT=RAM_BLOCK_TYPE=AUTO
+LPM_TYPE=altshift_taps
+NUMBER_OF_TAPS=32
+TAP_DISTANCE=32
+WIDTH=32
+DEVICE_FAMILY="Cyclone IV E"
+clock
+shiftin
+shiftout
+taps
